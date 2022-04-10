@@ -17,7 +17,7 @@ class DialogMessageServiceImpl(
         return dialogMessageRepository.findAll().map {
             DialogDto(
                 id = it.id,
-                lastMessage = messageRepository.getFirstByDialogId(it.id).toMessageDto(),
+                lastMessage = messageRepository.findTopByDialogIdOrderByIdDesc(it.id).toMessageDto(),
                 firstUser = it.firstUser.toUserDto(),
                 secondUser = it.secondUser.toUserDto()
             )

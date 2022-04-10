@@ -17,7 +17,7 @@ class MessageServiceImpl(
     }
 
     override fun getLastMessage(dialogId: Long): MessageDto {
-        return messageRepository.getFirstByDialogId(dialogId).toMessageDto()
+        return messageRepository.findTopByDialogIdOrderByIdDesc(dialogId).toMessageDto()
     }
 }
 

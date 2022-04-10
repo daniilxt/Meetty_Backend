@@ -4,5 +4,5 @@ import com.daniilxt.meetty.entity.MessageEntity
 import org.springframework.data.repository.CrudRepository
 
 interface MessageRepository : CrudRepository<MessageEntity, Long> {
-    fun getFirstByDialogId(id: Long): MessageEntity
+    fun findTopByDialogIdOrderByIdDesc(id: Long): MessageEntity
 }
