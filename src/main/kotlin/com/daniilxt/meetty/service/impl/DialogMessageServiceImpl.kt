@@ -1,6 +1,7 @@
 package com.daniilxt.meetty.service.impl
 
 import com.daniilxt.meetty.dto.DialogDto
+import com.daniilxt.meetty.entity.DialogEntity
 import com.daniilxt.meetty.entity.toMessageDto
 import com.daniilxt.meetty.entity.toUserDto
 import com.daniilxt.meetty.repository.DialogMessageRepository
@@ -15,12 +16,27 @@ class DialogMessageServiceImpl(
 ) : DialogMessageService {
     override fun getAll(): List<DialogDto> {
         return dialogMessageRepository.findAll().map {
-            DialogDto(
-                id = it.id,
-                lastMessage = messageRepository.findTopByDialogIdOrderByIdDesc(it.id).toMessageDto(),
-                firstUser = it.firstUser.toUserDto(),
-                secondUser = it.secondUser.toUserDto()
-            )
+            getDialogFromEntity(it)
         }
     }
+
+    override fun getDialogsByUserId(userId: Long): List<DialogDto> {
+        val userDialogs: MutableList<DialogDto> = mutableListOf()
+        dialogMessageRepository.findAll().forEach {
+            if (it.firstUser.id == userId || it.secondUser.id == userId) {
+                userDialogs.add(getDialogFromEntity(it))
+            }
+        }
+        return userDialogs
+    }
+
+    private fun getDialogFromEntity(it: DialogEntity): DialogDto {
+        return DialogDto(
+            id = it.id,
+            lastMessage = messageRepository.findTopByDialogIdOrderByIdDesc(it.id).toMessageDto(),
+            firstUser = it.firstUser.toUserDto(),
+            secondUser = it.secondUser.toUserDto()
+        )
+    }
+
 }
