@@ -20,4 +20,3 @@ class MessageServiceImpl(
         return messageRepository.findTopByDialogIdOrderByIdDesc(dialogId).toMessageDto()
     }
 }
-
