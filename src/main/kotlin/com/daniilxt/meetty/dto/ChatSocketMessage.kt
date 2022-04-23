@@ -9,10 +9,12 @@ import java.time.LocalDateTime
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class ChatSocketMessage(
-    val text: String,
-    var author: String,
+    val id: Long,
     @JsonDeserialize(using = LocalDateTimeDeserializer::class)
     @JsonSerialize(using = LocalDateTimeSerializer::class)
-    var datetime: LocalDateTime,
-    var receiver: String? = null
+    val dateTime: LocalDateTime,
+    val content: String,
+    val reactions: List<ReactionDto> = emptyList(),
+    val sender: UserDto,
+    val receiver: UserDto
 )

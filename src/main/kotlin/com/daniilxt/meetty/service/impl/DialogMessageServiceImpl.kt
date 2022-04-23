@@ -38,5 +38,4 @@ class DialogMessageServiceImpl(
             secondUser = it.secondUser.toUserDto()
         )
     }
-
 }

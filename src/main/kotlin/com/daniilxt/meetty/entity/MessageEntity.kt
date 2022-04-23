@@ -11,7 +11,7 @@ import javax.persistence.*
 @Table(name = "message")
 class MessageEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
     val date: LocalDate,
     val time: LocalTime,

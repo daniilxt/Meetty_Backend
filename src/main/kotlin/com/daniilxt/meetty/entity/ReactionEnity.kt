@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "reaction")
 class ReactionEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
     val reactionEmoji: String
 )

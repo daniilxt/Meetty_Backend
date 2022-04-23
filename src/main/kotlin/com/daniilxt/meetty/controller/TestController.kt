@@ -14,16 +14,16 @@ class TestController(
     @MessageMapping("/sock")
     fun chatSocket(res: ChatSocketMessage) {
         println(res)
-        sendMessageToUsers(res) //отправим сообщения другим пользователям
+        sendMessageToUsers(res)
     }
 
     private fun sendMessageToUsers(message: ChatSocketMessage) {
-        if (message.receiver != null) {
-            //если сообщение отправляется в приватный чат
-            simpleMessageTemplate.convertAndSendToUser(message.receiver!!, ".topic/chat", message)
-        } else {
-            //если сообщение отправляется в общий чат
-            simpleMessageTemplate.convertAndSend("/topic/chat", message)
-        }
+/*        val usersId = "${message.sender.id + message.receiver.id}"
+        val usersNames = (message.sender.lastName + message.receiver.lastName)
+        val res = (usersId + usersNames).toCharArray().sorted().joinToString("").toByteArray()
+        val connectionUniqueStr = Base64.getEncoder().encodeToString(res)
+        println(connectionUniqueStr)*/
+        //simpleMessageTemplate.convertAndSendToUser(message.receiver.id.toString(), "/topic/chat", message)
+        simpleMessageTemplate.convertAndSend("/topic/chat", message)
     }
 }
