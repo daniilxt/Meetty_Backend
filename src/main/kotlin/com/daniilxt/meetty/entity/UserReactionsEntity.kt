@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "user_reactions")
 class UserReactionsEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
     @OneToMany
     @JoinColumn(name = "reaction_id")
