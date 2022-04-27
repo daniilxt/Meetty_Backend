@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "dialogs")
 class DialogEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
     @OneToOne
     @JoinColumn(name = "first_user_id")

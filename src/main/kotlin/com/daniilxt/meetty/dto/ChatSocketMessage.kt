@@ -8,12 +8,13 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
 import java.time.LocalDateTime
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class MessageDto(
+data class ChatSocketMessage(
     val id: Long,
     @JsonDeserialize(using = LocalDateTimeDeserializer::class)
     @JsonSerialize(using = LocalDateTimeSerializer::class)
     val dateTime: LocalDateTime,
     val content: String,
     val reactions: List<ReactionDto> = emptyList(),
-    val sender: UserDto
+    val sender: UserDto,
+    val receiver: UserDto
 )

@@ -3,6 +3,7 @@ package com.daniilxt.meetty.entity
 import com.daniilxt.meetty.dto.MessageDto
 import com.daniilxt.meetty.dto.UserDto
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import javax.persistence.*
 
@@ -10,7 +11,7 @@ import javax.persistence.*
 @Table(name = "message")
 class MessageEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
     val date: LocalDate,
     val time: LocalTime,
@@ -25,8 +26,7 @@ class MessageEntity(
 
 fun MessageEntity.toMessageDto() = MessageDto(
     id = this.id,
-    date = this.date,
-    time = this.time,
+    dateTime = LocalDateTime.of(date, time),
     content = this.content,
     sender = this.toUserDto()
 )
