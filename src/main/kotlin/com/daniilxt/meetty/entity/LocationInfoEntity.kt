@@ -7,8 +7,8 @@ import javax.persistence.*
 @Table(name = "location_info")
 class LocationInfoEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
     @OneToOne
     @JoinColumn(name = "city_id")
     val city: CityEntity,

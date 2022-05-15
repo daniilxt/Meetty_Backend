@@ -7,8 +7,8 @@ import javax.persistence.*
 @Table(name = "university")
 class UniversityEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
     val name: String,
     @OneToOne
     @JoinColumn(name = "location_info_id")
