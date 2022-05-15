@@ -1,6 +1,7 @@
 package com.daniilxt.meetty.entity
 
 import com.daniilxt.meetty.dto.UserDto
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -8,12 +9,13 @@ import javax.persistence.*
 class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long = -1,
+    val id: Long = 0,
     val firstName: String = "",
     val lastName: String = "",
     val email: String = "",
     val phone: String = "",
-    val sex: String = ""
+    val sex: String = "",
+    val birthDay: LocalDate
 )
 
 fun UserEntity.toUserDto() = UserDto(
