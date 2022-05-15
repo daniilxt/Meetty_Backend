@@ -4,8 +4,6 @@ import com.daniilxt.meetty.exception.InvalidJwtAuthenticationException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
-import io.jsonwebtoken.io.Encoders
 import io.jsonwebtoken.security.Keys
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -57,7 +55,7 @@ class JwtTokenProvider(
         return key
     }
 
-    private fun getUserName(token: String): String {
+    fun getUserName(token: String): String {
         return Jwts.parserBuilder()
             .setSigningKey(getSigningKey())
             .build()

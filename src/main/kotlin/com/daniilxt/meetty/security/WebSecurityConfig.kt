@@ -33,7 +33,7 @@ class SpringSecurityConfig(
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/api/v1/auth").permitAll()
+            .antMatchers("/api/v1/auth/login").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)

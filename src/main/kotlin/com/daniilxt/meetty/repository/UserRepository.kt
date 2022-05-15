@@ -1,8 +1,7 @@
 package com.daniilxt.meetty.repository
 
-import com.daniilxt.meetty.entity.UserDetailEntity
+import com.daniilxt.meetty.entity.UserEntity
 import org.springframework.data.repository.CrudRepository
 
-interface UserRepository : CrudRepository<UserDetailEntity, Long>{
-    fun findUserByLogin(userName: String): UserDetailEntity?
+interface UserRepository : CrudRepository<UserEntity, Long> {
 }
