@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("api/dialogs")
+@RequestMapping("api/v1/dialogs")
 class DialogController(
     private val dialogMessageService: DialogMessageService
 ) {

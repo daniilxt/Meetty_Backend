@@ -8,12 +8,12 @@ import javax.persistence.*
 class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
-    val firstName: String,
-    val lastName: String,
-    val email: String,
-    val phone: String,
-    val sex: String
+    val id: Long = -1,
+    val firstName: String = "",
+    val lastName: String = "",
+    val email: String = "",
+    val phone: String = "",
+    val sex: String = ""
 )
 
 fun UserEntity.toUserDto() = UserDto(
