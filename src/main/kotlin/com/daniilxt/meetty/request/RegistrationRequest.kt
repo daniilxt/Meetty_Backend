@@ -1,8 +1,9 @@
 package com.daniilxt.meetty.request
 
 data class RegistrationRequest(
-    val firstName: String,
-    val lastName: String,
-    val email: String,
-    val password: String
+    val userCredentials: UserCredentialsRequest,
+    val userPersonalInfo: UserPersonalInfoRequest,
+    val userEducationInfo: UserEducationInfoRequest,
+    val professionalInterest: List<ProfessionalInterestRequest> = emptyList(),
+    val userAchievements: List<UserAchievementRequest> = emptyList()
 )

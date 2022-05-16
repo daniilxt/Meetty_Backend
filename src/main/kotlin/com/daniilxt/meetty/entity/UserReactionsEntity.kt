@@ -10,7 +10,7 @@ class UserReactionsEntity(
     val id: Long,
     @OneToMany
     @JoinColumn(name = "reaction_id")
-    val reaction: List<ReactionEntity>,
+    val reactions: List<ReactionEntity>,
     val reactionUserId: Long,
     val messageId: Long
 )

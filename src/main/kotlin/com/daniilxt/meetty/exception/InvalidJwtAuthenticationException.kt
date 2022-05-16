@@ -1,3 +1,9 @@
 package com.daniilxt.meetty.exception
 
-class InvalidJwtAuthenticationException(message: String) : RuntimeException(message)
+import org.springframework.http.HttpStatus
+
+class InvalidJwtAuthenticationException(message: String) : BaseException(
+    httpStatus = HttpStatus.UNAUTHORIZED, apiError = ApiError(
+        HttpStatus.UNAUTHORIZED.value(), message
+    )
+)
