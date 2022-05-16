@@ -3,10 +3,7 @@ package com.daniilxt.meetty.service.impl
 import com.daniilxt.meetty.dto.TokenDto
 import com.daniilxt.meetty.exception.AuthException
 import com.daniilxt.meetty.exception.EducationException
-import com.daniilxt.meetty.repository.UniversityRepository
-import com.daniilxt.meetty.repository.UserDetailsRepository
-import com.daniilxt.meetty.repository.UserEducationRepository
-import com.daniilxt.meetty.repository.UserRepository
+import com.daniilxt.meetty.repository.*
 import com.daniilxt.meetty.request.*
 import com.daniilxt.meetty.security.jwt.JwtTokenProvider
 import com.daniilxt.meetty.service.AuthService
@@ -22,6 +19,8 @@ class AuthServiceImpl(
     private val userRepository: UserRepository,
     private val userEducationRepository: UserEducationRepository,
     private val universityRepository: UniversityRepository,
+    private val userAchievementRepository: UserAchievementRepository,
+    private val userProfessionalInterestRepository: UserProfessionalInterestRepository,
     private val jwtTokenProvider: JwtTokenProvider,
 ) : AuthService {
     override fun getToken(authRequest: AuthRequest): TokenDto {
@@ -45,14 +44,23 @@ class AuthServiceImpl(
         val userUniversityEntity = universityRepository.findByIdOrNull(data.userEducationInfo.instituteId)
             ?: throw EducationException.NotFound()
 
-        val userEducation = saveThrowable(throwable = EducationException.Duplicated()) {
+        saveThrowable(throwable = EducationException.Duplicated()) {
             userEducationRepository.save(
                 data.userEducationInfo.toUserEducationEntity(userUniversityEntity, userEntity)
             )
         }
-
         val registeredUser = saveThrowable(throwable = AuthException.AccountAlreadyExist()) {
             userDetailsRepository.save(data.userCredentials.toUserDetailEntity(userEntity))
+        }
+
+        saveThrowable(throwable = AuthException.AccountAlreadyExist()) {
+            userProfessionalInterestRepository.saveAll(data.professionalInterest.map {
+                it.toUserProfessionalInterestEntity(userEntity)
+            })
+        }
+
+        saveThrowable(throwable = AuthException.AccountAlreadyExist()) {
+            userAchievementRepository.saveAll(data.userAchievements.map { it.toUserAchievementEntity(userEntity) })
         }
         val token = jwtTokenProvider.createToken(registeredUser.login, emptyList())
         return TokenDto(accessToken = token)
