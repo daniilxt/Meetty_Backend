@@ -35,6 +35,7 @@ class SpringSecurityConfig(
             .authorizeRequests()
             .antMatchers("/api/v1/auth/login").permitAll()
             .antMatchers("/api/v1/auth/registration").permitAll()
+            .antMatchers("/api/v1/regsteps/*").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
