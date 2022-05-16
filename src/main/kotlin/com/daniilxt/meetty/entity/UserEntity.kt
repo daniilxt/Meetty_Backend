@@ -8,7 +8,7 @@ import javax.persistence.*
 @Table(name = "users")
 class UserEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     val firstName: String = "",
     val lastName: String = "",
