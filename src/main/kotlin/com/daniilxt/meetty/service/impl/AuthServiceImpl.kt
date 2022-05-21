@@ -40,7 +40,6 @@ class AuthServiceImpl(
             throwable = AuthException.AccountAlreadyExist()
         ) { userRepository.save(data.userPersonalInfo.toUserEntity(data.userCredentials.email)) }
 
-
         val userUniversityEntity = universityRepository.findByIdOrNull(data.userEducationInfo.instituteId)
             ?: throw EducationException.NotFound()
 
