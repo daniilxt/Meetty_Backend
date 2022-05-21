@@ -33,13 +33,23 @@ class SpringSecurityConfig(
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/api/v1/auth/login").permitAll()
-            .antMatchers("/api/v1/auth/registration").permitAll()
-            .antMatchers("/api/v1/regsteps/*").permitAll()
+            .antMatchers(*AUTH_WHITELIST).permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
             .and()
             .apply(JwtSecurityConfigurer(jwtTokenProvider))
+    }
+
+    companion object {
+        private val AUTH_WHITELIST = arrayOf(
+            "/api/v1/auth/login",
+            "/api/v1/auth/registration",
+            "/api/v1/regsteps/*",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/v3/api-docs/**",
+            "/webjars/**",
+        )
     }
 }
