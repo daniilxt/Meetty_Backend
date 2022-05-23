@@ -28,7 +28,7 @@ class EducationInstitutionServiceImpl(
 
     @Transactional
     override fun save(data: EducationInstitutionDto): Long {
-        val city = cityRepository.findByName(data.location.city)
+        val city = cityRepository.findByName(data.location.city.name)
         val coordinates = coordinatesRepository.save(data.location.coordinates.toCoordinatesEntity())
         val location = locationInfoRepository.save(
             LocationInfoEntity(
