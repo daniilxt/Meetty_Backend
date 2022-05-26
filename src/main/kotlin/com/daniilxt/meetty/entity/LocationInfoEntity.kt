@@ -1,5 +1,6 @@
 package com.daniilxt.meetty.entity
 
+import com.daniilxt.meetty.dto.CityDto
 import com.daniilxt.meetty.dto.LocationInfoDto
 import javax.persistence.*
 
@@ -19,7 +20,12 @@ class LocationInfoEntity(
 )
 
 fun LocationInfoEntity.toLocationInfoDto() = LocationInfoDto(
-    city = this.city.name,
+    city = this.city.toCityDto(),
     address = this.address,
     coordinates = this.coordinates.toCoordinatesDto()
+)
+
+fun CityEntity.toCityDto() = CityDto(
+    id = this.id,
+    name = this.name
 )

@@ -18,6 +18,6 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(value = [DataIntegrityViolationException::class])
     fun handlePreconditionFailed(ex: DataIntegrityViolationException): ResponseEntity<ApiError> {
-        return ResponseEntity(ApiError(HttpStatus.FORBIDDEN.value(), "Duplicated entity"), HttpStatus.FORBIDDEN)
+        return ResponseEntity(ApiError(HttpStatus.CONFLICT.value(), "Duplicated entity"), HttpStatus.CONFLICT)
     }
 }
