@@ -14,6 +14,12 @@ sealed class AuthException(httpStatus: HttpStatus = HttpStatus.FORBIDDEN, apiErr
 
     class InvalidCredentials(additionalDescription: String = "") : AuthException(
         apiError = ApiError(errorCode = 403, description = "Invalid Credentials")
+
+    )
+
+    class InvalidUser(additionalDescription: String = "") : AuthException(
+        HttpStatus.NOT_FOUND,
+        apiError = ApiError(errorCode = 403, description = "User Not Found")
     )
 
     class UnknownError(additionalDescription: String = "") : AuthException(
