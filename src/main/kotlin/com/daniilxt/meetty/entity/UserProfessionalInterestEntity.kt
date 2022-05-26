@@ -1,5 +1,6 @@
 package com.daniilxt.meetty.entity
 
+import com.daniilxt.meetty.dto.ProfessionalInterestDto
 import javax.persistence.*
 
 @Entity
@@ -14,4 +15,9 @@ class UserProfessionalInterestEntity(
     @OneToOne
     @JoinColumn(name = "user_id")
     val user: UserEntity,
+)
+
+fun UserProfessionalInterestEntity.toProfessionalInterestDto() = ProfessionalInterestDto(
+    id = id,
+    interest = interests.nameRu
 )

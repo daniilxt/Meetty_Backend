@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 import java.security.Key
@@ -44,11 +45,6 @@ class JwtTokenProvider(
     }
 
     private fun getSigningKey(): Key {
-/*        val keyBytes: ByteArray = secretKey.toByteArray()
-        logger.info("keyBytes: ${keyBytes.size}")
-        val keys = Keys.hmacShaKeyFor(keyBytes)
-        logger.info("keys: ${keys}")*/
-        /*val key = Keys.secretKeyFor(SignatureAlgorithm.HS256)*/
         val seed = "H2VoPfRg69AEySbyVN2EODjiXBk7w85VZXsi1W5UOns=".toByteArray()
         val key = Keys.hmacShaKeyFor(seed)
         logger.info("Secret key: $key  $seed")

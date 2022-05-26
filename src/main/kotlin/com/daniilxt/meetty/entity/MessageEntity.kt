@@ -1,7 +1,7 @@
 package com.daniilxt.meetty.entity
 
 import com.daniilxt.meetty.dto.MessageDto
-import com.daniilxt.meetty.dto.UserDto
+import com.daniilxt.meetty.dto.SimpleUserDto
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -31,7 +31,7 @@ fun MessageEntity.toMessageDto() = MessageDto(
     sender = this.toUserDto()
 )
 
-fun MessageEntity.toUserDto() = UserDto(
+fun MessageEntity.toUserDto() = SimpleUserDto(
     id = this.sender.id,
     firstName = this.sender.firstName,
     lastName = this.sender.lastName,
