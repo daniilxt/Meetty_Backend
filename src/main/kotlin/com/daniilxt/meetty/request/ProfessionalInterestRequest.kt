@@ -11,6 +11,6 @@ data class ProfessionalInterestRequest(
 
 fun ProfessionalInterestRequest.toUserProfessionalInterestEntity(userEntity: UserEntity) =
     UserProfessionalInterestEntity(
-        interests = ProfessionalInterestEntity(id = this.id, nameRu = this.interestName),
+        interest = ProfessionalInterestEntity(id = this.id, nameRu = this.interestName),
         user = userEntity
     )

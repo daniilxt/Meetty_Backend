@@ -11,13 +11,14 @@ class UserProfessionalInterestEntity(
     val id: Long = 0,
     @OneToOne
     @JoinColumn(name = "interest_id")
-    val interests: ProfessionalInterestEntity,
+    val interest: ProfessionalInterestEntity,
     @OneToOne
     @JoinColumn(name = "user_id")
     val user: UserEntity,
 )
 
+// In future need edit this for edit interests in user profile
 fun UserProfessionalInterestEntity.toProfessionalInterestDto() = ProfessionalInterestDto(
-    id = id,
-    interest = interests.nameRu
+    id = interest.id,
+    interest = interest.nameRu
 )

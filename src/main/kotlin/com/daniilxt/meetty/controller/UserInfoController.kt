@@ -21,6 +21,11 @@ class UserInfoController(
         val authenticatedUserEmail = SecurityContextHolder.getContext().authentication.name
         return userInfoService.getAnyUser(authenticatedUserEmail)
     }
+    @GetMapping("/match")
+    fun getMatchedUser(@RequestHeader headers: HttpHeaders): List<UserInfoDto> {
+        val authenticatedUserEmail = SecurityContextHolder.getContext().authentication.name
+        return userInfoService.getMatchedUsers(authenticatedUserEmail)
+    }
 
     companion object {
         private val logger = LoggerFactory.getLogger(UserInfoController::class.java)
