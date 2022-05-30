@@ -22,5 +22,6 @@ fun UserEntity.toUserDto() = SimpleUserDto(
     id = this.id,
     firstName = this.firstName,
     lastName = this.lastName,
-    avatarLink = ""
+    avatarLink = "",
+    sex = sex
 )

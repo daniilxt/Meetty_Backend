@@ -5,10 +5,7 @@ import com.daniilxt.meetty.service.UserInfoProfileService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -20,6 +17,12 @@ class UserProfileController(
     fun getProfileInfo(@RequestHeader headers: HttpHeaders): UserProfileInfoDto {
         val authenticatedUserEmail = SecurityContextHolder.getContext().authentication.name
         return userInfoProfileService.getProfileInfo(authenticatedUserEmail)
+    }
+
+    @GetMapping("/{id}")
+    fun getProfileInfoById(@RequestHeader headers: HttpHeaders, @PathVariable id: Long): UserProfileInfoDto {
+        val authenticatedUserEmail = SecurityContextHolder.getContext().authentication.name
+        return userInfoProfileService.getProfileInfoById(authenticatedUserEmail, id)
     }
 
     companion object {

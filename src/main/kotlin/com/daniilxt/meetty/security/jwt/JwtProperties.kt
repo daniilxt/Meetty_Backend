@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Configuration
 @ConfigurationProperties(prefix = "jwt")
 class JwtProperties {
     var secretKey = "verySecret"
-    var validityInMs: Long = 1800000
+    var validityInMs: Long = 180_0000_0
 }

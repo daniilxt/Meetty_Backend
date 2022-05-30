@@ -2,10 +2,7 @@ package com.daniilxt.meetty.service.impl
 
 import com.daniilxt.meetty.dto.UserAdditionalInfoDto
 import com.daniilxt.meetty.dto.UserProfileInfoDto
-import com.daniilxt.meetty.entity.toEducationInstitutionDto
-import com.daniilxt.meetty.entity.toProfessionalInterestDto
-import com.daniilxt.meetty.entity.toUserAchievementDto
-import com.daniilxt.meetty.entity.toUserDto
+import com.daniilxt.meetty.entity.*
 import com.daniilxt.meetty.exception.AuthException
 import com.daniilxt.meetty.repository.UserAchievementRepository
 import com.daniilxt.meetty.repository.UserEducationRepository
@@ -23,18 +20,27 @@ class UserProfileInfoServiceImpl(
 ) : UserInfoProfileService {
     override fun getProfileInfo(userEmail: String): UserProfileInfoDto {
         val user = userRepository.getByEmail(userEmail) ?: throw AuthException.InvalidUser()
+        return getUserDto(user)
+    }
+
+    override fun getProfileInfoById(senderEmail: String, requestingUserId: Long): UserProfileInfoDto {
+        val user = userRepository.getById(requestingUserId) ?: throw AuthException.InvalidUser()
+        return getUserDto(user)
+    }
+
+    private fun getUserDto(user: UserEntity): UserProfileInfoDto {
         return UserProfileInfoDto(
             userInfo = user.toUserDto(),
             userAdditionalInfo = UserAdditionalInfoDto(
                 professionalInterests = userProfessionalInterestRepository.getByUserId(user.id)
                     .map { it.toProfessionalInterestDto() },
-                userBirthday = user.birthDay
+                userBirthday = user.birthDay,
+                userPhone = user.phone
             ),
             userAchievements = userAchievementRepository.getUserAchievementsEntitiesByUserId(user.id)
                 .map { it.toUserAchievementDto() },
-            userEducation = userEducationRepository.getUserEducationEntityByUserId(
-                user.id
-            ).university.toEducationInstitutionDto(),
+            userEducation = userEducationRepository.getUserEducationEntityByUserId(user.id).university
+                .toEducationInstitutionDto(),
             lastActivity = null
         )
     }

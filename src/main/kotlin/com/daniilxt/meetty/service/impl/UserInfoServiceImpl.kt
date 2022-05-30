@@ -46,6 +46,6 @@ class UserInfoServiceImpl(
 private fun UserProfileInfoDto.toUserInfoDto() = UserInfoDto(
     userInfo = userInfo,
     userAdditionalInfo = userAdditionalInfo,
-    userAchievements = userAchievements,
+    userEducation = userEducation,
     lastActivity = lastActivity
 )

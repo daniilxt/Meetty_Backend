@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 data class UserEducationDto(
     val id: Long,
-    val description: String,
+    val user: String,
     val date: LocalDate,
     val title: String
 )
