@@ -4,6 +4,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/meetty
     username: postgres
     password: "password"
+    hikari:
+      auto-commit: false
   jpa:
     properties:
       hibernate:
