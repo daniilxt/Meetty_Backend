@@ -15,5 +15,5 @@ data class MessageDto(
     val dateTime: LocalDateTime,
     val content: String,
     val reactions: List<ReactionDto> = emptyList(),
-    val sender: UserDto
+    val sender: SimpleUserDto
 )

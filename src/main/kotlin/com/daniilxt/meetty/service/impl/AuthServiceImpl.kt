@@ -7,6 +7,7 @@ import com.daniilxt.meetty.repository.*
 import com.daniilxt.meetty.request.*
 import com.daniilxt.meetty.security.jwt.JwtTokenProvider
 import com.daniilxt.meetty.service.AuthService
+import extensions.toEncryptedPassword
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -25,6 +26,11 @@ class AuthServiceImpl(
 ) : AuthService {
     override fun getToken(authRequest: AuthRequest): TokenDto {
         val user = userDetailsRepository.findUserByLogin(authRequest.login) ?: throw AuthException.InvalidCredentials()
+
+        if (user.userPassword != authRequest.password.toEncryptedPassword()) {
+            throw AuthException.IncorrectLoginOrPassword()
+        }
+
         val token = jwtTokenProvider.createToken(
             user.login, emptyList()
         )

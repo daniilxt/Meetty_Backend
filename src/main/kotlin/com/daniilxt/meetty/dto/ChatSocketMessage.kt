@@ -15,6 +15,6 @@ data class ChatSocketMessage(
     val dateTime: LocalDateTime,
     val content: String,
     val reactions: List<ReactionDto> = emptyList(),
-    val sender: UserDto,
-    val receiver: UserDto
+    val sender: SimpleUserDto,
+    val receiver: SimpleUserDto
 )

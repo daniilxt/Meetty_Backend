@@ -1,6 +1,6 @@
 package com.daniilxt.meetty.controller
 
-import com.daniilxt.meetty.dto.EducationInstitutionDto
+import com.daniilxt.meetty.dto.*
 import com.daniilxt.meetty.service.EducationInstitutionService
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
@@ -17,8 +17,18 @@ class EducationInstitutionController(
     }
 
     @PostMapping("/add")
-    fun save(@RequestBody educationInstitutionDto: EducationInstitutionDto): Long {
-        return educationInstitutionService.save(educationInstitutionDto)
+    fun save(@RequestBody educationInstitutionDto: EducationInstitutionDto2): Long {
+        val coord = educationInstitutionDto.coordinates.split(",").map { it.toFloat() }
+        val edu = EducationInstitutionDto(
+            name = educationInstitutionDto.name,
+            location = LocationInfoDto(
+                city = CityDto(name = educationInstitutionDto.city, id = 0),
+                address = educationInstitutionDto.address,
+                coordinates = CoordinatesDto(latitude = coord[0], longitude = coord[1])
+            ),
+            logoUri = educationInstitutionDto.logoUri
+        )
+        return educationInstitutionService.save(edu)
     }
 
     @DeleteMapping("/delete/{id}")
