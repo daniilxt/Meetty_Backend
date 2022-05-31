@@ -1,0 +1,16 @@
+package com.daniilxt.meetty.entity
+
+import javax.persistence.*
+
+@Entity
+@Table(name = "user_reactions")
+class UserReactionsEntity(
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long,
+    @OneToMany
+    @JoinColumn(name = "reaction_id")
+    val reactions: List<ReactionEntity>,
+    val reactionUserId: Long,
+    val messageId: Long
+)
