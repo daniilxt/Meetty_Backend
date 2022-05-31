@@ -15,7 +15,11 @@ class UserEntity(
     val email: String = "",
     val phone: String = "",
     val sex: String = "",
-    val birthDay: LocalDate
+    val birthDay: LocalDate,
+    @Lob
+    @Basic(fetch=FetchType.LAZY, optional=true)
+    @Column(name = "profile_picture")
+    var profilePicture: ByteArray?
 )
 
 fun UserEntity.toUserDto() = SimpleUserDto(
