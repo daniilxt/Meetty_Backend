@@ -20,8 +20,21 @@ class ImageMediaServiceImpl(
     }
 
     @Transactional
+    override fun getUserProfileByUserId(userId: Long): ByteArray {
+        val user = userRepository.getById(userId) ?: throw AuthException.InvalidUser()
+        return user.profilePicture ?: throw  MediaException.FileNotFound()
+    }
+
+    @Transactional
     override fun saveProfileImage(userEmail: String, file: MultipartFile) {
         val user = userRepository.getByEmail(userEmail) ?: throw AuthException.InvalidUser()
+        user.profilePicture = file.bytes
+        userRepository.save(user)
+    }
+
+    @Transactional
+    override fun saveProfileImageByUserId(userId: Long, file: MultipartFile) {
+        val user = userRepository.getById(userId) ?: throw AuthException.InvalidUser()
         user.profilePicture = file.bytes
         userRepository.save(user)
     }

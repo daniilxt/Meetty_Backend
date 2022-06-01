@@ -4,6 +4,6 @@ data class SimpleUserDto(
     val id: Long = -1,
     val firstName: String = "",
     val lastName: String = "",
-    val avatarLink: String = "",
+    val avatarLink: String? = null,
     val sex: String = ""
 )

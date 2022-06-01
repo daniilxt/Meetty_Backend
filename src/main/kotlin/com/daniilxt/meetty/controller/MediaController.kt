@@ -21,10 +21,29 @@ class MediaController(
         return ResponseEntity.ok()
     }
 
+    @PostMapping(value = ["/image/profile/change/{id}"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun setImageByUserId(@PathVariable("id") id: Long, @RequestParam file: MultipartFile): ResponseEntity.BodyBuilder {
+        imageMediaService.saveProfileImageByUserId(id, file)
+        return ResponseEntity.ok()
+    }
+
     @GetMapping("/image/profile/my")
     fun getImage(): ResponseEntity<Any> {
         val authenticatedUserEmail = SecurityContextHolder.getContext().authentication.name
         val image = imageMediaService.getUserProfileImage(authenticatedUserEmail)
+        return try {
+            ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(MediaType.IMAGE_JPEG_VALUE))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${System.currentTimeMillis()}\"")
+                .body(image)
+        } catch (_: Exception) {
+            ResponseEntity.notFound().build()
+        }
+    }
+
+    @GetMapping("/image/profile/{id}")
+    fun getImageByUserId(@PathVariable("id") userId: Long): ResponseEntity<Any> {
+        val image = imageMediaService.getUserProfileByUserId(userId)
         return try {
             ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(MediaType.IMAGE_JPEG_VALUE))
