@@ -34,7 +34,7 @@ class AuthServiceImpl(
         val token = jwtTokenProvider.createToken(
             user.login, emptyList()
         )
-        return TokenDto(accessToken = token)
+        return TokenDto(accessToken = token, userId = user.user.id)
     }
 
     @Transactional
@@ -69,7 +69,7 @@ class AuthServiceImpl(
             userAchievementRepository.saveAll(data.userAchievements.map { it.toUserAchievementEntity(userEntity) })
         }
         val token = jwtTokenProvider.createToken(registeredUser.login, emptyList())
-        return TokenDto(accessToken = token)
+        return TokenDto(accessToken = token, userId = registeredUser.user.id)
     }
 
     private fun <T> saveThrowable(

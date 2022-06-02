@@ -24,8 +24,13 @@ class DialogMessageServiceImpl(
     }
 
     override fun getDialogsByUserEmail(userEmail: String): List<DialogDto> {
-        //dialogMessageRepository.fi
-        return emptyList()
+        val userDialogs: MutableList<DialogDto> = mutableListOf()
+        dialogMessageRepository.findAll().forEach {
+            if (it.firstUser.email == userEmail || it.secondUser.email == userEmail) {
+                userDialogs.add(getDialogFromEntity(it))
+            }
+        }
+        return userDialogs
     }
 
     override fun getDialogsByUserId(userId: Long): List<DialogDto> {

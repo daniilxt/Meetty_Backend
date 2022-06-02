@@ -12,14 +12,10 @@ class DialogController(
     private val dialogMessageService: DialogMessageService
 ) {
     @GetMapping
-    fun getAll(): List<DialogDto> {
+    fun getUserDialogs(): List<DialogDto> {
         val authenticatedUserEmail = SecurityContextHolder.getContext().authentication.name
-        return dialogMessageService.getAll()
+        return dialogMessageService.getDialogsByUserEmail(authenticatedUserEmail)
     }
-
-    @GetMapping("/{id}")
-    fun getDialogsByUserId(@PathVariable("id") dialogId: Long): List<DialogDto> =
-        dialogMessageService.getDialogsByUserId(dialogId)
 
     @PostMapping("/user_id={user_id}")
     fun createDialog(@PathVariable("user_id") userId: Long, @RequestBody messageDto: MessageDto): Long =
