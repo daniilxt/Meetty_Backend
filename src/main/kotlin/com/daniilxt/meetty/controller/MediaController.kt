@@ -47,7 +47,7 @@ class MediaController(
         return try {
             ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(MediaType.IMAGE_JPEG_VALUE))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${System.currentTimeMillis()}\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${userId}\"")
                 .body(image)
         } catch (_: Exception) {
             ResponseEntity.notFound().build()
