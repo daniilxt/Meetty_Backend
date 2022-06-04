@@ -1,5 +1,6 @@
 package com.daniilxt.meetty.security.jwt
 
+import extensions.sendApiError
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
@@ -18,11 +19,7 @@ class JwtAuthEntryPoint : AuthenticationEntryPoint {
         response: HttpServletResponse,
         e: AuthenticationException
     ) {
-        logger.error("Unauthorized error. Message - {}", e.message)
-        response.contentType = "application/json";
-        response.status = HttpServletResponse.SC_UNAUTHORIZED;
-        response.outputStream.println("{ \"error\": \"" + e.message + "\" }");
-        //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid credentials")
+        e.message?.let { response.sendApiError(it) }
     }
 
     companion object {

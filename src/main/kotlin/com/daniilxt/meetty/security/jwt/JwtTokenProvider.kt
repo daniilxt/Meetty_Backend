@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 import java.security.Key
@@ -60,14 +59,20 @@ class JwtTokenProvider(
             .subject
     }
 
+    @Throws(InvalidJwtAuthenticationException::class)
     fun validateToken(token: String): Boolean = try {
         val claims = Jwts.parserBuilder()
             .setSigningKey(getSigningKey())
             .build()
             .parseClaimsJws(token)
-        !claims.body.expiration.before(Date())
+        val isTokenExpired = !claims.body.expiration.before(Date())
+        isTokenExpired
     } catch (e: JwtException) {
-        throw InvalidJwtAuthenticationException("Expired or invalid token")
+        logger.info("Token info ${e.message}")
+        if (e.message?.contains("expired") == true) {
+            throw InvalidJwtAuthenticationException("Expired token")
+        }
+        throw InvalidJwtAuthenticationException("Invalid token")
     } catch (e: IllegalArgumentException) {
         throw InvalidJwtAuthenticationException("Expired or invalid token")
     }
