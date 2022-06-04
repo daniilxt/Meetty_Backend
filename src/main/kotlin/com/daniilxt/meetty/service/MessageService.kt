@@ -5,4 +5,5 @@ import com.daniilxt.meetty.dto.MessageDto
 interface MessageService {
     fun getAll(dialogId: Long): List<MessageDto>
     fun getLastMessage(dialogId: Long): MessageDto
+    fun sendMessage(messageDto: MessageDto): Long
 }

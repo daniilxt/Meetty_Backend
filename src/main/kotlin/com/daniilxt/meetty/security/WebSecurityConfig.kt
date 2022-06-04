@@ -45,6 +45,7 @@ class SpringSecurityConfig(
         private val AUTH_WHITELIST = arrayOf(
             "/api/v1/auth/login",
             "/api/v1/auth/registration",
+            "/api/v1/media/image/profile/*",
             "/api/v1/regsteps/**",
             "/swagger-ui/**",
             "/swagger-resources/**",

@@ -1,5 +1,6 @@
 package com.daniilxt.meetty.entity
 
+import com.daniilxt.meetty.config.AppConstantsConfig
 import com.daniilxt.meetty.dto.MessageDto
 import com.daniilxt.meetty.dto.SimpleUserDto
 import java.time.LocalDate
@@ -11,8 +12,8 @@ import javax.persistence.*
 @Table(name = "message")
 class MessageEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
     val date: LocalDate,
     val time: LocalTime,
     val content: String,
@@ -35,5 +36,5 @@ fun MessageEntity.toUserDto() = SimpleUserDto(
     id = this.sender.id,
     firstName = this.sender.firstName,
     lastName = this.sender.lastName,
-    avatarLink = ""
+    avatarLink = AppConstantsConfig.IMAGE_PROFILE_ENDPOINT + this.sender.id
 )

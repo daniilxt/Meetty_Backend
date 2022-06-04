@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
-
-// применяется ко всем контроллерам
+//применяется ко всем контроллерам
 @ControllerAdvice
 class ErrorHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(BaseException::class)
@@ -19,5 +18,13 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(value = [DataIntegrityViolationException::class])
     fun handlePreconditionFailed(ex: DataIntegrityViolationException): ResponseEntity<ApiError> {
         return ResponseEntity(ApiError(HttpStatus.CONFLICT.value(), "Duplicated entity"), HttpStatus.CONFLICT)
+    }
+
+    @ExceptionHandler(value = [InvalidJwtAuthenticationException::class])
+    fun handleTokenErrors(ex: InvalidJwtAuthenticationException): ResponseEntity<ApiError> {
+        return ResponseEntity(
+            ApiError(HttpStatus.UNAUTHORIZED.value(), ex.apiError.description),
+            HttpStatus.UNAUTHORIZED
+        )
     }
 }

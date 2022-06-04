@@ -23,6 +23,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+    implementation("org.javassist:javassist:3.29.0-GA")
     implementation( "org.springdoc:springdoc-openapi-kotlin:1.6.8")
     implementation( "org.springdoc:springdoc-openapi-ui:1.6.8")
     implementation( "org.springdoc:springdoc-openapi-security:1.6.8")
