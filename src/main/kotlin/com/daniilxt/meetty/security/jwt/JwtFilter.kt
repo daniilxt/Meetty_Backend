@@ -23,10 +23,10 @@ class JwtFilter(private val jwtTokenProvider: JwtTokenProvider) : GenericFilterB
             if (token != null && jwtTokenProvider.validateToken(token)) {
                 val auth: Authentication? = jwtTokenProvider.getAuthentication(token)
                 SecurityContextHolder.getContext().authentication = auth
-                filterChain.doFilter(servletRequest, servletResponse)
             }
         } catch (e: InvalidJwtAuthenticationException) {
             e.message?.let { (servletResponse as HttpServletResponse).sendApiError(it) }
         }
+        filterChain.doFilter(servletRequest, servletResponse)
     }
 }
